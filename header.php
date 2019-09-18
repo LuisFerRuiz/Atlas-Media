@@ -1,7 +1,7 @@
 <!doctype html>
 <html <?php language_attributes(); ?> class="no-js">
 	<head>
-		<<meta charset="<?php bloginfo('charset'); ?>">
+		<meta charset="<?php bloginfo('charset'); ?>">
 		<title><?php wp_title(''); ?><?php if(wp_title('', false)) { echo ' :'; } ?> <?php bloginfo('name'); ?></title>
 
 		<link href="//www.google-analytics.com" rel="dns-prefetch">
@@ -44,24 +44,27 @@
 			            <a href="#" class="open_nav"><span></span></a>
 			            <a href="index.php" class="logo"><img src="wp-content/themes/html5blank-stable/img/atlas.svg" alt="Atlas Media"></a>
 			            <nav>
-			            	<?php
-							$the_query = new WP_Query( [
-								'post_type' => 'post',
-								'posts_per_page' => 4,
-								'post_status' => 'publish',
-								'category_name' => "menus",
-								'order' => 'DESC',
-							] );
-							if ( $the_query->have_posts() ) {
-								while ( $the_query->have_posts() ) {
-									 $the_query->the_post();
-								 ?>
-								 <a href="<?=get_permalink($post->ID); ?>"><?= the_title(); ?></a>
-
-							<?php }
-	    						wp_reset_postdata();
-	    						}
-	    					 ?>
+			            	<?php 
+							wp_nav_menu(
+								array(
+							'theme_location'  => 'header-menu',
+							'container'       => 'nav',
+							'container_class' => false,
+							'container_id'    => '',
+							'menu_class'      => false,
+							'menu_id'         => '',
+							'echo'            => true,
+							'fallback_cb'     => 'wp_page_menu',
+							'before'          => '',
+							'after'           => '',
+							'link_before'     => '',
+							'link_after'      => '',
+							'items_wrap'      => '<ul>%3$s</ul>',
+							'depth'           => 0,
+							'walker'          => ''
+							)
+						);
+					?>
 			            </nav>
 			        </section>
 
